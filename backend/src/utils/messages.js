@@ -21,6 +21,7 @@ class Messages {
     static PASSWORD_CHANGED = "Your password had been changed!!"
     static SUBSCRIPTIONDONE = "You have succuessfully subscribed to the nacscan news letter!!"
     static SUBSCRIPTIONALLREADY = "You have already subscribed to nacscan news letter feature!!"
+    static EMPLOYEE_ADDEDD = "Employee added successfully!"
 }
 
 module.exports = Messages

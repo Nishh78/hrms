@@ -1,7 +1,8 @@
+import axios from 'axios';
 import { Helmet } from 'react-helmet-async';
 import { filter } from 'lodash';
 import { sentenceCase } from 'change-case';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 // @mui
 import {
   Card,
@@ -11,8 +12,6 @@ import {
   Avatar,
   Button,
   Popover,
-  Checkbox,
-  TableRow,
   MenuItem,
   TableBody,
   TableCell,
@@ -26,18 +25,19 @@ import {
 import Label from '../components/label';
 import Iconify from '../components/iconify';
 import Scrollbar from '../components/scrollbar';
+// import USERLIST from '../_mock/user';
+
 // sections
 import { UserListHead, UserListToolbar } from '../sections/@dashboard/user';
 // mock
-import USERLIST from '../_mock/user';
-
 // ----------------------------------------------------------------------
 
 const TABLE_HEAD = [
   { id: 'name', label: 'Name', alignRight: false },
+  { id: 'empNo', label: 'Employee No.', alignRight: false },
   { id: 'company', label: 'Company', alignRight: false },
   { id: 'role', label: 'Role', alignRight: false },
-  { id: 'isVerified', label: 'Verified', alignRight: false },
+  { id: 'contactNo', label: 'Contact', alignRight: false },
   { id: 'status', label: 'Status', alignRight: false },
   { id: '' },
 ];
@@ -88,6 +88,37 @@ export default function UserPage() {
 
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
+  const [USERLIST, SETUSERLIST] = useState([]);
+
+  useEffect(() => {
+    const userinfo=[];
+    const getUsers = async () => {
+      await axios
+        .get(`${process.env.REACT_APP_BACKEND_URL}/employee`)
+        .then((res) => {
+          const userData = res.data.payload;
+          if (userData.length > 0) {
+            for (let i = 0; i < userData.length; i++) {
+              const data = userData[i];
+              userinfo.push({
+                id: data._id,
+                avatarUrl: `/assets/images/avatars/avatar_${i + 1}.jpg`,
+                name: `${data.firstName} ${data.lastName}`,
+                company: data.company,
+                status: data.status,
+                role: data.designation,
+                empNo: data.empNo,
+                contactNo: data.contactNo,
+              });
+            }
+            SETUSERLIST(userinfo);
+          }
+        })
+        .catch((error) => console.log(error));
+    };
+    getUsers();
+  }, []);
+
   const handleOpenMenu = (event) => {
     setOpen(event.currentTarget);
   };
@@ -109,21 +140,6 @@ export default function UserPage() {
       return;
     }
     setSelected([]);
-  };
-
-  const handleClick = (event, name) => {
-    const selectedIndex = selected.indexOf(name);
-    let newSelected = [];
-    if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, name);
-    } else if (selectedIndex === 0) {
-      newSelected = newSelected.concat(selected.slice(1));
-    } else if (selectedIndex === selected.length - 1) {
-      newSelected = newSelected.concat(selected.slice(0, -1));
-    } else if (selectedIndex > 0) {
-      newSelected = newSelected.concat(selected.slice(0, selectedIndex), selected.slice(selectedIndex + 1));
-    }
-    setSelected(newSelected);
   };
 
   const handleChangePage = (event, newPage) => {
@@ -149,7 +165,7 @@ export default function UserPage() {
   return (
     <>
       <Helmet>
-        <title> User | Minimal UI </title>
+        <title> User | Smarsh Infotech </title>
       </Helmet>
 
       <Container>
@@ -179,16 +195,13 @@ export default function UserPage() {
                 />
                 <TableBody>
                   {filteredUsers.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
-                    const { id, name, role, status, company, avatarUrl, isVerified } = row;
+                    const { id, name, role, status, company, avatarUrl, contactNo, empNo } = row;
                     const selectedUser = selected.indexOf(name) !== -1;
-
+                    console.log(row);
                     return (
                       <TableRow hover key={id} tabIndex={-1} role="checkbox" selected={selectedUser}>
-                        <TableCell padding="checkbox">
-                          <Checkbox checked={selectedUser} onChange={(event) => handleClick(event, name)} />
-                        </TableCell>
 
-                        <TableCell component="th" scope="row" padding="none">
+                        <TableCell style={{'padding-left':'15px'}} component="th" scope="row" padding="none">
                           <Stack direction="row" alignItems="center" spacing={2}>
                             <Avatar alt={name} src={avatarUrl} />
                             <Typography variant="subtitle2" noWrap>
@@ -197,11 +210,13 @@ export default function UserPage() {
                           </Stack>
                         </TableCell>
 
+                        <TableCell align="left">{empNo}</TableCell>
+
                         <TableCell align="left">{company}</TableCell>
 
                         <TableCell align="left">{role}</TableCell>
 
-                        <TableCell align="left">{isVerified ? 'Yes' : 'No'}</TableCell>
+                        <TableCell align="left">{contactNo}</TableCell>
 
                         <TableCell align="left">
                           <Label color={(status === 'banned' && 'error') || 'success'}>{sentenceCase(status)}</Label>

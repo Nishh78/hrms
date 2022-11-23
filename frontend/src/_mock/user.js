@@ -1,27 +1,13 @@
-import { faker } from '@faker-js/faker';
-import { sample } from 'lodash';
+const usersStaticData = [
+  {
+    id: '123465',
+    avatarUrl: `/assets/images/avatars/avatar_${1}.jpg`,
+    name: 'Devang Langhanoja',
+    company: 'Smarsh infotech',
+    isVerified: true,
+    status: 'Joined',
+    role: 'Seniour Developer',
+  },
+];
 
-// ----------------------------------------------------------------------
-
-const users = [...Array(24)].map((_, index) => ({
-  id: faker.datatype.uuid(),
-  avatarUrl: `/assets/images/avatars/avatar_${index + 1}.jpg`,
-  name: faker.name.fullName(),
-  company: faker.company.name(),
-  isVerified: faker.datatype.boolean(),
-  status: sample(['active', 'banned']),
-  role: sample([
-    'Leader',
-    'Hr Manager',
-    'UI Designer',
-    'UX Designer',
-    'UI/UX Designer',
-    'Project Manager',
-    'Backend Developer',
-    'Full Stack Designer',
-    'Front End Developer',
-    'Full Stack Developer',
-  ]),
-}));
-
-export default users;
+export default usersStaticData;
