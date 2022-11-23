@@ -20,6 +20,7 @@ import {
   IconButton,
   TableContainer,
   TablePagination,
+  TableRow,
 } from '@mui/material';
 // components
 import Label from '../components/label';
