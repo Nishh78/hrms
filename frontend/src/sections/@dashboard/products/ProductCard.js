@@ -5,7 +5,7 @@ import { styled } from '@mui/material/styles';
 // utils
 import { fCurrency } from '../../../utils/formatNumber';
 // components
-import Label from '../../../components/label';
+// import Label from '../../../components/label';
 import { ColorPreview } from '../../../components/color-utils';
 
 // ----------------------------------------------------------------------
@@ -31,7 +31,7 @@ export default function ShopProductCard({ product }) {
     <Card>
       <Box sx={{ pt: '100%', position: 'relative' }}>
         {status && (
-          <Label
+          <p
             variant="filled"
             color={(status === 'sale' && 'error') || 'info'}
             sx={{
@@ -43,7 +43,7 @@ export default function ShopProductCard({ product }) {
             }}
           >
             {status}
-          </Label>
+          </p>
         )}
         <StyledProductImg alt={name} src={cover} />
       </Box>

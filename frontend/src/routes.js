@@ -4,11 +4,12 @@ import DashboardLayout from './layouts/dashboard';
 import SimpleLayout from './layouts/simple';
 //
 import BlogPage from './pages/BlogPage';
-import UserPage from './pages/UserPage';
 import LoginPage from './pages/LoginPage';
 import Page404 from './pages/Page404';
 import ProductsPage from './pages/ProductsPage';
+import UserCreate from './pages/dashboard/UserCreate';
 import DashboardAppPage from './pages/DashboardAppPage';
+import UserList from './pages/UserList';
 
 // ----------------------------------------------------------------------
 
@@ -20,8 +21,9 @@ export default function Router() {
       children: [
         { element: <Navigate to="/dashboard/app" />, index: true },
         { path: 'app', element: <DashboardAppPage /> },
-        { path: 'user', element: <UserPage /> },
+        { path: 'user', element: <UserList /> },
         { path: 'products', element: <ProductsPage /> },
+        { path: 'creatUser', element: <UserCreate /> },
         { path: 'blog', element: <BlogPage /> },
       ],
     },

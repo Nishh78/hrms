@@ -23,7 +23,7 @@ import {
   TableRow,
 } from '@mui/material';
 // components
-import Label from '../components/label';
+// import Label from '../components/label';
 import Iconify from '../components/iconify';
 import Scrollbar from '../components/scrollbar';
 // import USERLIST from '../_mock/user';
@@ -74,7 +74,7 @@ function applySortFilter(array, comparator, query) {
   return stabilizedThis.map((el) => el[0]);
 }
 
-export default function UserPage() {
+export default function UserList() {
   const [open, setOpen] = useState(null);
 
   const [page, setPage] = useState(0);
@@ -202,7 +202,7 @@ export default function UserPage() {
                     return (
                       <TableRow hover key={id} tabIndex={-1} role="checkbox" selected={selectedUser}>
 
-                        <TableCell style={{'padding-left':'15px'}} component="th" scope="row" padding="none">
+                        <TableCell style={{paddingLeft:'15px'}} component="th" scope="row" padding="none">
                           <Stack direction="row" alignItems="center" spacing={2}>
                             <Avatar alt={name} src={avatarUrl} />
                             <Typography variant="subtitle2" noWrap>
@@ -220,7 +220,7 @@ export default function UserPage() {
                         <TableCell align="left">{contactNo}</TableCell>
 
                         <TableCell align="left">
-                          <Label color={(status === 'banned' && 'error') || 'success'}>{sentenceCase(status)}</Label>
+                          <p color={(status === 'banned' && 'error') || 'success'}>{sentenceCase(status)}</p>
                         </TableCell>
 
                         <TableCell align="right">
