@@ -6,5 +6,8 @@ const router = express.Router();
 
 router.get("/", employeeController.getAllEmployee);
 router.post('/add',validate(employeeValidator.addEmployee),employeeController.addEmployee);
+router.get("/getEmployeeDetails/:id", employeeController.getEmployeeById);
+router.get("/getAllHR", employeeController.getAllHR);
+router.get("/getAllTL", employeeController.getAllTL);
 
 module.exports = router;

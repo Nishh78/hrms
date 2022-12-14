@@ -13,9 +13,8 @@ const addEmployee = {
         state: Joi.string().required(),
         country: Joi.string().required(),
         degree: Joi.string().required(),
-        empNo: Joi.number().required(),
+        empNo: Joi.string().required(),
         address: Joi.string().required(),
-        contactNo: Joi.number().required(),
         userRole: Joi.string().required(),
         designation: Joi.string().required(),
         status: Joi.string().required(),
@@ -32,7 +31,14 @@ const addEmployee = {
         birthDate: Joi.string().required(),
         previousPosition: Joi.string().required(),
         yoe: Joi.number().required(),
-        skill: Joi.array().required()
+        skill: Joi.array().required(),
+        zipCode: Joi.number().required(),
+        teamLeader: Joi.string(),
+        teamHr: Joi.string(),
+        totalCreditLeave: Joi.number().required(),
+        totalPaidLeave: Joi.number().required(),
+        usedCreditLeave: Joi.number().required(),
+        usedPaidLeave: Joi.number().required(),
     }),
 };
 
